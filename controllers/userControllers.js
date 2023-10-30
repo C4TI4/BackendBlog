@@ -3,7 +3,7 @@ const dbPool = require("../db/pgClient");
 const getAllFilms = async (req, res) => {
   try {
     const { rows } = await dbPool.query(
-      `SELECT movie_id, filmname, description, director, rating, year, imagesrc, trailer_url, genre FROM films;`
+      `SELECT user_id, first_name, last_name, email, password, avatar FROM users;`
     );
 
     return res.json(rows);
@@ -22,12 +22,12 @@ const getSingleFilm = async (req, res) => {
     const {
       rows: [oneFilm],
     } = await dbPool.query(
-      `SELECT  movie_id, filmname, description, director, rating, year, imagesrc, trailer_url, genre FROM films WHERE movie_id=$1`,
+      `SELECT  user_id, first_name, last_name, email, password, avatar FROM users WHERE user_id=$1`,
       [id]
     );
 
     if (!oneFilm)
-      return res.status(404).json({ error: "Movie could not be found" });
+      return res.status(404).json({ error: "User could not be found" });
 
     res.json(oneFilm);
   } catch (error) {
