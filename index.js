@@ -3,8 +3,8 @@
 const express = require("express");
 const app = express();
 const dbPool = require("./db/pgClient");
-const { getAllFilms, getSingleFilm } = require("./controllers/filmControllers");
 const cors = require("cors");
+const { getAllUsers, getSingleUser } = require("./controllers/userControllers");
 
 const port = process.env.PORT || 7000;
 
@@ -34,10 +34,10 @@ app.use(cors());
 // to see in terminal all the credentials added in env file
 
 
-app.get("/", (req, res) => res.send("Welcome to the films API"));
+app.get("/", (req, res) => res.send("Welcome to the blog API"));
 
-app.route("/films").get(getAllFilms);
-app.route("/films/:id").get(getSingleFilm);
+app.route("/users").get(getAllUsers);
+app.route("/users/:user_id").get(getSingleUser);
 
 // Search Bar logic
 
@@ -46,7 +46,7 @@ app.route("/films/:id").get(getSingleFilm);
 //     try {
 //     const { query } = req.query 
 //     const { rows } = await pool.query(
-//         'SELECT * FROM films WHERE filmname=%$1% OR description=%$1% OR director=%$1% OR year=%$1%',
+//         'SELECT * FROM users WHERE first_name=%$1% OR last_name=%$1% OR email=%$1%',
 //         [query])
 //     return res.json(rows)
 //     } catch (error) {
